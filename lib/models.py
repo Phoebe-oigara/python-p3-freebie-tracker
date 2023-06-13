@@ -27,3 +27,18 @@ class Dev(Base):
 
     def __repr__(self):
         return f'<Dev {self.name}>'
+    
+class Freebie(Base):
+    __tablename__ = 'freebies'
+
+    id = Column(Integer(), primary_key=True)
+    item_name= Column(String())
+    value = Column(Integer)
+    company_id = Column(Integer, ForeignKey('companies.id'))
+    
+    dev = relationship('Dev', secondary='dev_freebies', uselist=False, backref='freebie')
+    company = relationship('Company', backref='freebie')
+
+    def __repr__(self):
+        return f'<Dev {self.name}>'
+
